@@ -5,6 +5,8 @@ import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.course.dto.TakeCourseDto;
 import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.course.service.TakeCourseService;
+import com.zerobase.fastlms.history.controller.LoginHistoryController;
+import com.zerobase.fastlms.history.service.LoginHistoryService;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.service.MemberService;
@@ -18,18 +20,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
-    
     private final MemberService memberService;
     private final TakeCourseService takeCourseService;
-    
+    private final LoginHistoryService loginHistoryService;
+    private final LoginHistoryController loginHistoryController;
+
     @RequestMapping("/member/login")
-    public String login() {
-        
+    public String login(HttpServletRequest request) {
+        loginHistoryService.saveLoginHistory(loginHistoryController.loginUserDataFind(request));
         return "member/login";
     }
     
