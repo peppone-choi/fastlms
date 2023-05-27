@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,9 +33,16 @@ public class MemberController {
     private final LoginHistoryController loginHistoryController;
     @RequestMapping("/member/login")
     public String login(HttpServletRequest request) {
-        loginHistoryService.saveLoginHistory(loginHistoryController.loginUserDataFind(request));
-        
-        return "member/login";
+        String username = request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : null;
+        if (username != null) {
+            // 로그인된 상태이므로 로그인 기록 저장 수행
+            loginHistoryService.saveLoginHistory(loginHistoryController.loginUserDataFind(request));
+            memberService.loginLogging(username);
+            return "member/login";
+        } else {
+            // 로그인되지 않은 상태이므로 로그인 페이지로 이동 또는 처리
+            return "member/login";
+        }
     }
     
     @GetMapping("/member/find-password")

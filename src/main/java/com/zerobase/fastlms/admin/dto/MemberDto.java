@@ -39,7 +39,8 @@ public class MemberDto {
     //추가컬럼
     long totalCount;
     long seq;
-    
+
+    LocalDateTime lastLoginTime;
     
     public static MemberDto of(Member member) {
         
@@ -61,7 +62,9 @@ public class MemberDto {
                 .zipcode(member.getZipcode())
                 .addr(member.getAddr())
                 .addrDetail(member.getAddrDetail())
-                
+
+
+                .lastLoginTime(member.getLastLoginTime())
                 .build();
     }
     
@@ -76,5 +79,11 @@ public class MemberDto {
         return udtDt != null ? udtDt.format(formatter) : "";
         
     }
-    
+
+    public String getLastLoginTimeText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return lastLoginTime != null ? lastLoginTime.format(formatter) : "";
+
+    }
+
 }

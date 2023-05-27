@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
+@Getter
 @Entity(name = "login_history")
 public class LoginHistoryEntity {
     @Id

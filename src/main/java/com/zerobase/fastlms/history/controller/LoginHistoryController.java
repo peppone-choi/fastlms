@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class LoginHistoryController {
 
     public LoginHistoryEntity loginUserDataFind(HttpServletRequest request) {
+
         return LoginHistoryEntity.builder()
                 .userId(request.getUserPrincipal().getName())
                 .LoginIp(request.getRemoteAddr())

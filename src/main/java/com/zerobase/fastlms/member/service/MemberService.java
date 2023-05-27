@@ -7,6 +7,7 @@ import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface MemberService extends UserDetailsService {
@@ -17,7 +18,12 @@ public interface MemberService extends UserDetailsService {
      * uuid에 해당하는 계정을 활성화 함.
      */
     boolean emailAuth(String uuid);
-    
+
+    /**
+     * 로그인 시 userName에 해당하는 최신 로그인 정보를 저장.
+     */
+    boolean loginLogging(String userId);
+
     /**
      * 입력한 이메일로 비밀번호 초기화 정보를 전송
      */

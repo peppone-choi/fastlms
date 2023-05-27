@@ -24,6 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -97,7 +98,17 @@ public class MemberServiceImpl implements MemberService {
         
         return true;
     }
-    
+
+    @Override
+    public boolean loginLogging(String userId) {
+        Member member = memberRepository.findById(userId).get();
+        member.setLastLoginTime(LocalDateTime.now());
+        System.out.println(member);
+        memberRepository.save(member);
+        return true;
+    }
+
+
     @Override
     public boolean sendResetPassword(ResetPasswordInput parameter) {
     
