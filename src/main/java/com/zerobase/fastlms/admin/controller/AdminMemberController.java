@@ -46,7 +46,11 @@ public class AdminMemberController extends BaseController {
     public String detail(Model model, MemberParam parameter) {
         
         parameter.init();
-        
+
+        List<LoginHistoryDto> login = loginHistoryService.list(parameter);
+        model.addAttribute("login", login);
+        System.out.println(login);
+
         MemberDto member = memberService.detail(parameter.getUserId());
         model.addAttribute("member", member);
        
@@ -55,8 +59,7 @@ public class AdminMemberController extends BaseController {
     
     @PostMapping("/admin/member/status.do")
     public String status(Model model, MemberInput parameter) {
-    
-        
+
         boolean result = memberService.updateStatus(parameter.getUserId(), parameter.getUserStatus());
         
         return "redirect:/admin/member/detail.do?userId=" + parameter.getUserId();

@@ -37,7 +37,7 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
             int i = 0;
             for(LoginHistoryDto x : list) {
                 x.setTotalCount(totalCount);
-                x.setSeq(totalCount - parameter.getPageStart() - i);
+                x.setSeq(totalCount - i);
                 i++;
             }
         }

@@ -6,6 +6,7 @@ import com.zerobase.fastlms.course.dto.TakeCourseDto;
 import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.course.service.TakeCourseService;
 import com.zerobase.fastlms.history.controller.LoginHistoryController;
+import com.zerobase.fastlms.history.dto.LoginHistoryDto;
 import com.zerobase.fastlms.history.service.LoginHistoryService;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
@@ -100,9 +101,8 @@ public class MemberController {
         
         String userId = principal.getName();
         MemberDto detail = memberService.detail(userId);
-        
+
         model.addAttribute("detail", detail);
-        
         return "member/info";
     }
     

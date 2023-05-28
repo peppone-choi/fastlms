@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zerobase.fastlms.admin.mapper.LoginMapper">
+
+    <sql id="selectListWhere">
+        <if test="searchType != null and searchValue != null">
+            <choose>
+                <when test="searchType == 'loginIp'">
+                    and login_agent like concat('%', #{searchValue}, '%')
+                </when>
+                <when test="searchType == 'loginAgent'">
+                    and login_agent like concat('%', #{searchValue}, '%')
+                </when>
+                <when test="searchType == 'loginTime'">
+                    and login_time like concat('%', #{searchValue}, '%')
+                </when>
+                <otherwise>
+                    and
+                    (
+                    login_agent like concat('%', #{searchValue}, '%')
+                    or
+                    login_agent like concat('%', #{searchValue}, '%')
+                    or
+                    login_time like concat('%', #{searchValue}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+
+    </sql>
+
+    <select id="selectListCount" resultType="long">
+        select count(*)
+        from login_history
+        where 1 = 1
+            <include refid="selectListWhere"/>
+    </select>
+
+    <select id="selectList" resultType="com.zerobase.fastlms.history.dto.LoginHistoryDto">
+        select *
+        from login_history
+        where 1 = 1
+            <include refid="selectListWhere"/>
+
+        limit #{pageStart}, #{pageEnd}
+    </select>
+
+</mapper>

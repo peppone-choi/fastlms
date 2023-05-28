@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>관리자 화면 </title>
     <style>
-        .detail table {
+        .detail table, .login table {
             width: 100%;
             border-collapse: collapse;
         }
-        .detail table th, .detail table td {
+        .detail table th, .detail table td, .login table th, .login table td {
             border:solid 1px #000;
         }
 
@@ -96,6 +96,25 @@
             </tbody>
         </table>
 
+        <div class="login" >
+            <table>
+                <tbody>
+                <tr>
+                    <th>No</th>
+                    <th>로그인 일자</th>
+                    <th>접속 IP</th>
+                    <th>접속 UserAgent</th>
+                </tr>
+                <tr th:each="x : ${login}">
+                    <td th:text="${x.seq}"></td>
+                    <td th:text="${x.loginTime}"></td>
+                    <td th:text="${x.loginIp}"></td>
+                    <td th:text="${x.loginAgent}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
         <div>
             <a href="list.do"> 목록 </a>
 
@@ -103,6 +122,7 @@
 
 
     </div>
+
 
 
 </body>
